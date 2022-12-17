@@ -1,0 +1,6 @@
+prof. profesor
+dr doktor
+np. na przykład
+itd. i tak dalej
+m.in. między innymi
+itp. i tym podobne
