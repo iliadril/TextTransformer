@@ -1,0 +1,68 @@
+package pl.put.poznan.transformer.logic;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Hashtable;
+import java.util.List;
+
+
+public class AbbreviationsTransformer {
+
+    private Hashtable<String, String> long2short_dict;
+    private Hashtable<String, String> short2long_dict;
+
+    public AbbreviationsTransformer(String filename) throws IOException{
+        long2short_dict = new Hashtable<String, String>();
+        short2long_dict = new Hashtable<String, String>();
+
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
+
+        String line;
+        while(reader.ready())
+        {
+            line = reader.readLine();
+
+            int spaceIdx = line.indexOf(" ");
+            if (spaceIdx != -1) {
+                String shortForm = line.substring(0, spaceIdx);
+                String longForm = line.substring(spaceIdx + 1, line.length() - 1);
+                long2short_dict.put(shortForm, longForm);
+                short2long_dict.put(longForm, shortForm);
+            }
+        }
+
+        reader.close();
+    }
+
+    public String transform2Full(String original) {
+        String transformed = original;
+        Set<String> dictKeys = short2long_dict.keySet();
+
+        for (String key : dictKeys){
+            if (transformed.indexOf(key) != -1)
+            {
+                transformed = transformed.replaceAll(key, short2long_dict.get(key));
+            }
+        }
+
+        return transformed;
+    }
+
+    public String transform2Short(String original) {
+        String transformed = original;
+        Set<String> dictKeys = long2short_dict.keySet();
+
+        for (String key : dictKeys){
+            if (transformed.indexOf(key) != -1)
+            {
+                transformed = transformed.replaceAll(key, long2short_dict.get(key));
+            }
+        }
+
+        return transformed;
+    }
+}
