@@ -96,31 +96,30 @@ public class TextTransformerImpl implements TextTransformer {
         }
 
         for(i = 0; i < list.size(); ++i) {
-            this.tak(list);
+            this.delete_word(list);
         }
 
-        NewString = this.help_with_delete(list);
+        NewString = this.SetNewString(list);
         return NewString;
     }
 
-    public String help_with_delete(ArrayList<String> list) {
+    public String SetNewString(ArrayList<String> list) {
         String NewString = "";
-
         for(int i = 0; i < list.size(); ++i) {
             NewString = NewString + (String)list.get(i) + " ";
         }
-
         return NewString;
     }
 
-    public String tak(ArrayList<String> list) {
+    public String delete_word(ArrayList<String> list) {
         for(int i = 0; i < list.size(); ++i) {
             if (i > 0 && Objects.equals(list.get(i), list.get(i - 1))) {
                 list.remove(list.get(i));
             }
         }
 
-        String x = this.help_with_delete(list);
+        String x = this.SetNewString(list);
+
         return x;
     }
 }
