@@ -85,6 +85,42 @@ public class TextTransformerImpl implements TextTransformer {
 
     @Override
     public String deleteRepetitions(String x) {
-        return null;
+        String NewString = "";
+        String[] parts = x.split(" ");
+        ArrayList<String> list = new ArrayList();
+        int j = parts.length;
+
+        int i;
+        for(i = 0; i < j; ++i) {
+            list.add(parts[i]);
+        }
+
+        for(i = 0; i < list.size(); ++i) {
+            this.tak(list);
+        }
+
+        NewString = this.help_with_delete(list);
+        return NewString;
+    }
+
+    public String help_with_delete(ArrayList<String> list) {
+        String NewString = "";
+
+        for(int i = 0; i < list.size(); ++i) {
+            NewString = NewString + (String)list.get(i) + " ";
+        }
+
+        return NewString;
+    }
+
+    public String tak(ArrayList<String> list) {
+        for(int i = 0; i < list.size(); ++i) {
+            if (i > 0 && Objects.equals(list.get(i), list.get(i - 1))) {
+                list.remove(list.get(i));
+            }
+        }
+
+        String x = this.help_with_delete(list);
+        return x;
     }
 }
