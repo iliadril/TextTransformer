@@ -27,7 +27,7 @@ public class Number2TextTransformer {
             int spaceIdx = line.indexOf(" ");
             if (spaceIdx != -1) {
                 Integer key = Integer.parseInt(line.substring(0, spaceIdx));
-                String value = line.substring(spaceIdx + 1, line.length() - 1);
+                String value = line.substring(spaceIdx + 1, line.length());
                 digitDict.put(key, value);
                 dictKeys.add(key);
             }
@@ -40,7 +40,7 @@ public class Number2TextTransformer {
     public String transform(Integer digit) {
         String text = "";
         for (Integer key : dictKeys){
-            if (digit > key)
+            if (digit >= key)
             {
                 text = text + " " + digitDict.get(key);
                 digit -= key;
