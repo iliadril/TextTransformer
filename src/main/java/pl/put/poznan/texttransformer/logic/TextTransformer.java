@@ -6,4 +6,5 @@ public interface TextTransformer {
     String lower(String x);
     String capitalize(String x);
     String inverse(String x);
+    String deleteRepetitions(String x);
 }
