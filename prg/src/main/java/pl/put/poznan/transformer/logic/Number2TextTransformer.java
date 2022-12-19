@@ -1,22 +1,21 @@
 package pl.put.poznan.transformer.logic;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Hashtable;
-import java.util.List;
+import java.util.ArrayList;
 
 
 public class Number2TextTransformer {
 
-    private Hashtable<Integer, String> digitDict;
-    private Set<Integer> dictKeys;
+    private final Hashtable<Integer, String> digitDict;
+    private final ArrayList<Integer> dictKeys;
 
     public Number2TextTransformer(String filename) throws IOException{
         digitDict = new Hashtable<Integer, String>();
+        dictKeys = new ArrayList<Integer>();
 
         BufferedReader reader = new BufferedReader(new FileReader(filename));
 
@@ -34,12 +33,12 @@ public class Number2TextTransformer {
             }
         }
 
-        Collections.sort(dictKeys, Collections.reverseOrder());
+        dictKeys.sort(Collections.reverseOrder());
         reader.close();
     }
 
     public String transform(Integer digit) {
-        String text = new String();
+        String text = "";
         for (Integer key : dictKeys){
             if (digit > key)
             {
