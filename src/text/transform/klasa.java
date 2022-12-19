@@ -16,9 +16,6 @@ public class klasa implements text_transform{
     public static void main(String[] args) {
         String x = "MirEk";
         klasa obj = new klasa(x);
-        //System.out.print("upper " + obj.upper(x) + "\n");
-        //System.out.print("lower " + obj.lower(x) + "\n");
-        //System.out.print(obj.capitalize(x));
         System.out.print(obj.inverse(x));
 
     }
