@@ -31,7 +31,7 @@ public class TextTransformerServiceImpl implements TextTransformerService {
 
 
     List<String> availableModes = Arrays.asList(
-            "upper", "lower", "capitalize", "inverse", "deleteRepetitions"
+            "upper", "lower", "capitalize", "inverse", "repetitions"
     );
 
     public TextTransformerServiceImpl() throws IOException {
@@ -41,11 +41,12 @@ public class TextTransformerServiceImpl implements TextTransformerService {
     @Override
     public String transform(String transformType, String text) {
         List<String> transformations = this.parseTransformations(transformType);
-        logger.info("transforming a string using {}", String.join(", ", transformations));
+        logger.info("alternating a string with {} transformations {}", transformations.size(), String.join(", ", transformations));
         for (String t : transformations) {
             text = this.applyTransformation(t, text);
         }
-        return null;
+        logger.info("transformed text {}", text);
+        return text;
     }
 
     private String applyTransformation(String transformation, String text) {
@@ -62,7 +63,7 @@ public class TextTransformerServiceImpl implements TextTransformerService {
             case "inverse" -> {
                 return textTransformer.inverse(text);
             }
-            case "deleteRepetitions" -> {
+            case "repetitions" -> {
                 return textTransformer.deleteRepetitions(text);
             }
             default -> logger.warn("no method provided for {}", transformation);
