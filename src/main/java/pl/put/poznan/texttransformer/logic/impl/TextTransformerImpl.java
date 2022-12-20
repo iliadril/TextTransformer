@@ -4,11 +4,10 @@ import org.springframework.stereotype.Component;
 import pl.put.poznan.texttransformer.logic.TextTransformer;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Component
 public class TextTransformerImpl implements TextTransformer {
-
-}
 
     /**
      * upper - function to convert all letters to uppercase
@@ -48,7 +47,7 @@ public class TextTransformerImpl implements TextTransformer {
         x = changeLetter(x, 0);
         for (int i = 0; i < x.length(); i++) {
             if(x.charAt(i) == ' '){
-                if((int) x.charAt(i+1) <= 122 && (int) x.charAt(i+1) >= 97) {
+                if(x.charAt(i+1) <= 122 && x.charAt(i+1) >= 97) {
                     x = changeLetter(x, i+1);
                 }
             }
@@ -84,7 +83,7 @@ public class TextTransformerImpl implements TextTransformer {
         ArrayList<Boolean> index = new ArrayList<>();
         ArrayList<Character> characters = new ArrayList<>();
         for(int i = 0; i<len; i++){
-            if((int) x.charAt(i) <= 122 && (int) x.charAt(i) >= 97) index.add(false); // mala
+            if(x.charAt(i) <= 122 && x.charAt(i) >= 97) index.add(false); // mala
             else index.add(true);
             characters.add(x.charAt(i));
         }
@@ -119,7 +118,7 @@ public class TextTransformerImpl implements TextTransformer {
      */
     @Override
     public String deleteRepetitions(String x) {
-        String NewString = "";
+        String newString = "";
         String[] parts = x.split(" ");
         ArrayList<String> list = new ArrayList();
         int j = parts.length;
@@ -130,11 +129,11 @@ public class TextTransformerImpl implements TextTransformer {
         }
 
         for(i = 0; i < list.size(); ++i) {
-            this.delete_word(list);
+            this.deleteWord(list);
         }
 
-        NewString = this.SetNewString(list);
-        return NewString;
+        newString = this.SetNewString(list);
+        return newString;
     }
 
     /**
@@ -143,11 +142,11 @@ public class TextTransformerImpl implements TextTransformer {
      * @return - returns New String of given splitted strings in list
      */
     public String SetNewString(ArrayList<String> list) {
-        String NewString = "";
-        for(int i = 0; i < list.size(); ++i) {
-            NewString = NewString + (String)list.get(i) + " ";
+        String newString = "";
+        for (String s : list) {
+            newString = newString + s + " ";
         }
-        return NewString;
+        return newString;
     }
 
     /**
@@ -156,15 +155,13 @@ public class TextTransformerImpl implements TextTransformer {
      * @param list - list of Strings taken from function deleteRepetitions.
      * @return - returns String without repetition (if function found repetition)
      */
-    public String delete_word(ArrayList<String> list) {
+    public String deleteWord(ArrayList<String> list) {
         for(int i = 0; i < list.size(); ++i) {
             if (i > 0 && Objects.equals(list.get(i), list.get(i - 1))) {
                 list.remove(list.get(i));
             }
         }
 
-        String x = this.SetNewString(list);
-
-        return x;
+        return this.SetNewString(list);
     }
 }

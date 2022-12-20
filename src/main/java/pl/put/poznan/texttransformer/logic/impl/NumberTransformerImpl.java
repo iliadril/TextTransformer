@@ -1,25 +1,26 @@
 package pl.put.poznan.texttransformer.logic.impl;
 
 import pl.put.poznan.texttransformer.logic.NumberTransformer;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Hashtable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class NumberTransformerImpl implements NumberTransformer {
-    private final Hashtable<Integer, String> digitDict;
+    private final HashMap<Integer, String> digitDict;
     private final ArrayList<Integer> dictKeys;
 
     /**
      * Number2TextTransformer - constructor method
      *
-     * @param String filename - file path to dictionary containing text forms of digits
+     * @param filename - file path to dictionary containing text forms of digits
      * @throws IOException exception when trying to access a file that does not exist
      */
-    public Number2TextTransformer(String filename) throws IOException{
-        digitDict = new Hashtable<>();
+    public NumberTransformerImpl(String filename) throws IOException{
+        digitDict = new HashMap<>();
         dictKeys = new ArrayList<>();
 
         BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -45,7 +46,7 @@ public class NumberTransformerImpl implements NumberTransformer {
     /**
      * transform - transforms digit into text. Example: For input '100' output would be 'one hundred'
      *
-     * @param Integer digit - digit that should be changed into text
+     * @param digit - digit that should be changed into text
      * @return returns String text - digit expressed using text
      */
     @Override
