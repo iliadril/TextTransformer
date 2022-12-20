@@ -17,5 +17,14 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: maven
+          
       - name: Validate, build and run tests
         run: mvn --batch-mode --update-snapshots verify
+        
+      - name: Have GitHub Actions package maven project
+        run: mvn -B package --file pom.xml
+        
+      - name: check the target folder
+        run: |
+          cd target
+          ls -a
