@@ -1,0 +1,54 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+TextTransformerService <|-- NumberTransformer
+TextTransformerService <|-- LatexTransformer
+TextTransformerService <|-- AbbreviationTransformer
+TextTransformerService <|-- TextTransformer
+TextTransformerController <|-- TextTransformerService
+TextTransformerApplication <|-- TextTransformerController
+
+interface AbbreviationTransformer {
+
+    String transform2Full(String original);
+    String transform2Short(String original);
+}
+
+interface LatexTransformer {
+
+    String transform(String x);
+}
+
+interface NumberTransformer {
+
+    String transform(Integer x);
+}
+
+interface TextTransformer {
+
+    String upper(String x);
+    String lower(String x);
+    String capitalize(String x);
+    String inverse(String x);
+    String deleteRepetitions(String x);
+}
+
+interface TextTransformerService {
+
+    String transform(String type, String text);
+}
+
+class TextTransformerApplication {
+
+	void main(String[] args);
+}
+
+class TextTransformerController {
+
+    String get(String text, String transforms);
+    String post(String text, String transforms);
+}
+
+
+@enduml
