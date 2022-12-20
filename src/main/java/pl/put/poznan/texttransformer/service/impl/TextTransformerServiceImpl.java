@@ -4,9 +4,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.put.poznan.texttransformer.logic.AbbreviationTransformer;
+import pl.put.poznan.texttransformer.logic.LatexTransformer;
+import pl.put.poznan.texttransformer.logic.NumberTransformer;
 import pl.put.poznan.texttransformer.logic.TextTransformer;
+import pl.put.poznan.texttransformer.logic.impl.AbbreviationTransformerImpl;
+import pl.put.poznan.texttransformer.logic.impl.LatexTransformerImpl;
+import pl.put.poznan.texttransformer.logic.impl.NumberTransformerImpl;
 import pl.put.poznan.texttransformer.service.TextTransformerService;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,10 +24,19 @@ public class TextTransformerServiceImpl implements TextTransformerService {
 
     @Autowired
     TextTransformer textTransformer;
+    AbbreviationTransformer abbreviationTransformer = new AbbreviationTransformerImpl("src/main/resources/dict_Short2Full.txt");
+    LatexTransformer latexTransformer = new LatexTransformerImpl("src/main/resources/latex_special_chars.txt");
+    NumberTransformer numberTransformer = new NumberTransformerImpl("src/main/resources/dict_Int2Str.txt");
+
+
 
     List<String> availableModes = Arrays.asList(
             "upper", "lower", "capitalize", "inverse", "deleteRepetitions"
     );
+
+    public TextTransformerServiceImpl() throws IOException {
+        // this constructor is empty simply because I'm lazy and exhausted, sorry for that
+    }
 
     @Override
     public String transform(String transformType, String text) {
